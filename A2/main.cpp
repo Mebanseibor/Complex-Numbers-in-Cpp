@@ -51,11 +51,27 @@ class Complex{
         std::cout << real << symbol << imag << "i\n";
     }
 
-    double& getReal(){return real;}
-    double& getImag(){return imag;}
+    double getReal() const {return real;}
+    double getImag() const {return imag;}
+    double& getReal() {return real;}
+    double& getImag() {return imag;}
     void setReal(double real){this->real = real;}
     void setImag(double imag){this->imag = imag;}
 };
+
+std::ostream& operator << (std::ostream& os, const Complex& c) {
+    os << c.getReal();
+
+    if (c.getImag() >= 0) os << "+" << c.getImag() << "i";
+    else os << c.getImag() << "i";
+
+    return os;
+}
+
+std::istream& operator >> (std::istream& is, Complex& c) {
+    is >> c.getReal() >> c.getImag();
+    return is;
+}
 
 Complex input(){
     double r, i;
@@ -124,6 +140,16 @@ int main(){
     std::cout << "\n\nEquality Check\n";
     std::string equality = c1==c2?"true":"false";
     std::cout << "Equality:\t" << equality << "\n";
+
+
+
+    // demonstrating << operator overloadding
+    std::cout << "\n\nResults:\n";
+    std::cout << "First complex number:\t" << c1 << "\n";
+    std::cout << "Second complex number:\t" << c2 << "\n";
+    std::cout << "Sum:\t" << cSum<< "\n";
+    std::cout << "Difference:\t" << cDiff<< "\n";
+    std::cout << "Product:\t" << cProduct<< "\n";
 
 
     std::cout << "\n\n--- End of program ---\n";
