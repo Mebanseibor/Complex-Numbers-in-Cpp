@@ -120,6 +120,10 @@ int main(){
     std::cout << "After postfix:\t" << c1++.getReal();
     
 
+    // equality
+    std::cout << "\n\nEquality Check\n";
+    std::string equality = c1==c2?"true":"false";
+    std::cout << "Equality:\t" << equality << "\n";
 
 
     std::cout << "\n\n--- End of program ---\n";
