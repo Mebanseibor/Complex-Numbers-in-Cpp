@@ -4,8 +4,14 @@
 
 using namespace com;
 int main(){
-    Employee e1 = Employee();
-    std::cout << e1.name;
+    std::cout << "Employee:\n";
+    Employee employee = Employee();
+    employee.printDetails();
+
+
+    std::cout << "\nManager:\n";
+    Manager manager = Manager();
+    manager.printDetails();
     
     return 0;
 }
