@@ -33,6 +33,16 @@ class Complex{
         return boolReal && boolImag;
     }
 
+    Complex& operator ++(){ // prefix
+        real++;
+        return *this;
+    }
+
+    Complex operator ++(int){   // postfix
+        Complex result = *this;
+        real++;
+        return result;
+    }
 
     // helper functions
     void display(){
@@ -41,8 +51,8 @@ class Complex{
         std::cout << real << symbol << imag << "i\n";
     }
 
-    double getReal(){return real;}
-    double getImag(){return imag;}
+    double& getReal(){return real;}
+    double& getImag(){return imag;}
     void setReal(double real){this->real = real;}
     void setImag(double imag){this->imag = imag;}
 };
@@ -103,11 +113,12 @@ int main(){
 
     // prefix and postfix
     std::cout << "\n\nPrefix and Postfix\n";
-    std::cout << "Before prefix:\t" << "\n";
-    std::cout << "After prefix:\t" << "\n";
+    std::cout << "Before prefix:\t" << c1.getReal() << "\n";
+    std::cout << "After prefix:\t" << ++c1.getReal();
 
-    std::cout << "Before postfix:\t" << "\n";
-    std::cout << "After postfix:\t" << "\n";
+    std::cout << "\nBefore postfix:\t" << c1.getReal() << "\n";
+    std::cout << "After postfix:\t" << c1++.getReal();
+    
 
 
 
