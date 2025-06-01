@@ -1,4 +1,5 @@
-# include<iostream>
+#include <iostream>
+#include <cmath>
 
 class Complex{
     private:
@@ -11,18 +12,39 @@ class Complex{
         imag = i;
     }
 
-    Complex sum(Complex c1, Complex c2){ return Complex(c1.real+c2.real, c1.imag+c2.imag); }
-    Complex diff(Complex c1, Complex c2){ return Complex(c1.real-c2.real, c1.imag-c2.imag); }
-    Complex product(Complex c1, Complex c2){ return Complex(c1.real*c2.real, c1.imag*c2.imag); }
+    Complex operator + (const Complex& other) const{
+        return Complex(this->real+other.real , this->imag + other.imag);
+    }
+
+    Complex operator - (const Complex& other) const{
+        return Complex(this->real-other.real , this->imag - other.imag);
+    }
+
+    Complex operator * (const Complex& other) const{
+        double realPart = this->real * other.real - this->imag * other.imag;
+        double imagPart = this->real * other.imag + this->imag * other.real;
+        return Complex(realPart, imagPart);
+    }
+
+    bool operator == (const Complex& other) const {
+        const double EPS = 1e-6;
+        bool boolReal = std::abs(this->real - other.real) <= EPS;
+        bool boolImag = std::abs(this->imag - other.imag) <= EPS;
+        return boolReal && boolImag;
+    }
+
 
     // helper functions
     void display(){
-        // std::cout << "Real part:\t" << real << "\n";
-        // std::cout << "Imaginary part:\t" << imag << "\n";
         char symbol = '\0';
         if (imag>=0) symbol = '+';
         std::cout << real << symbol << imag << "i\n";
     }
+
+    double getReal(){return real;}
+    double getImag(){return imag;}
+    void setReal(double real){this->real = real;}
+    void setImag(double imag){this->imag = imag;}
 };
 
 Complex input(){
@@ -34,7 +56,7 @@ Complex input(){
     return Complex(r, i);
 }
 
-void testInputs(Complex c1, Complex c2){
+void displayInputs(Complex c1, Complex c2){
     std::cout << "Complex Number 1:\n";
     c1.display();
 
@@ -56,14 +78,17 @@ int main(){
     Complex c2 = input();
     std::cout << "\n";
 
-    testInputs(c1, c2);
+    displayInputs(c1, c2);
+
+
 
     // compute sum, difference and product
-    Complex cSum = Complex().sum(c1, c2);
-    Complex cDiff = Complex().diff(c1, c2);
-    Complex cProduct = Complex().product(c1, c2);
+    Complex cSum = c1+c2;
+    Complex cDiff = c1-c2;
+    Complex cProduct = c1*c2;
 
     std::cout << "\n\nResults of their Sum, Difference and Products\n";
+
     std::cout << "Sum:\n";
     cSum.display();
 
@@ -72,6 +97,9 @@ int main(){
 
     std::cout << "\nProduct:\n";
     cProduct.display();
+
+
+
 
     // prefix and postfix
     std::cout << "\n\nPrefix and Postfix\n";
